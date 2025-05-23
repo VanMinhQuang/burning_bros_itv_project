@@ -1,4 +1,5 @@
 import 'package:burning_bros/data/repositories/list_screen_repository.dart';
+import 'package:burning_bros/domain/use_cases/list_screen/list_screen_favorite_use_case.dart';
 import 'package:burning_bros/domain/use_cases/list_screen/list_screen_load_use_case.dart';
 import 'package:burning_bros/presentation/list_screen/cubit/list_data_cubit.dart';
 import 'package:burning_bros/presentation/list_screen/views/list_data_form.dart';
@@ -10,10 +11,13 @@ class ListDataScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final listDataRepository = ListDataRepositoryImplement();
     return BlocProvider(
       create: (context) => ListDataCubit(
-          listDataLoadUseCase: ListDataLoadUseCase(
-              listDataRepository: ListDataRepositoryImplement())),
+        listDataFavoriteUseCase: ListDataFavoriteUseCase(),
+        listDataLoadUseCase:
+            ListDataLoadUseCase(listDataRepository: listDataRepository),
+      ),
       child: ListDataForm(),
     );
   }

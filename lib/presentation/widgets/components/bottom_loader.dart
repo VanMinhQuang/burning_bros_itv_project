@@ -1,3 +1,4 @@
+import 'package:burning_bros/core/styles/color.dart';
 import 'package:flutter/material.dart';
 
 class BotLoader extends StatelessWidget {
@@ -10,7 +11,9 @@ class BotLoader extends StatelessWidget {
         child: SizedBox(
           width: 24,
           height: 24,
-          child: CircularProgressIndicator()
+          child: CircularProgressIndicator(
+            color: mainColor,
+          )
         ),
       ),
     );

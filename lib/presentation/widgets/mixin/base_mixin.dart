@@ -1,3 +1,4 @@
+import 'package:burning_bros/core/styles/color.dart';
 import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 
@@ -58,7 +59,8 @@ mixin BaseMixin <T extends StatefulWidget> on State<T> implements HandleNetworkR
           children: [
             const Center(
               child: CircularProgressIndicator(
-                valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                color: mainColor,
+                valueColor: AlwaysStoppedAnimation<Color>(Colors.cyan),
               ),
             ),
           ],

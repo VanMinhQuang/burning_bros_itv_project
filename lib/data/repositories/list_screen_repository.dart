@@ -9,8 +9,8 @@ import 'package:http/http.dart' as http;
 
 class ListDataRepositoryImplement extends Service implements ListDataRepository{
   @override
-  Future<List<Product>?> getProducts({required int skip, required int pageSize}) async {
-      var urlString = '$api_url/products?limit=$pageSize&skip=$skip';
+  Future<List<Product>?> getProducts({required int skip, required int pageSize, required String name}) async {
+    var urlString = '$api_url/products/search?q=$name&limit=$pageSize&skip=$skip';
       var url = Uri.parse(urlString);
 
       var createRequestHeader = await createHeaderAuthorization();
@@ -25,5 +25,7 @@ class ListDataRepositoryImplement extends Service implements ListDataRepository{
     }
 
   }
+
+
 
 }

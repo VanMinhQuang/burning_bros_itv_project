@@ -1,3 +1,4 @@
+import 'package:burning_bros/data/model/product.dart';
 import 'package:burning_bros/domain/entities/product.dart';
 import 'package:equatable/equatable.dart';
 
@@ -19,6 +20,10 @@ class ListDataLoadedState extends ListDataState {
   @override
   // TODO: implement props
   List<Object?> get props => [data];
+}
+
+class ListDataFavoriteState extends ListDataState {
+  const ListDataFavoriteState();
 }
 
 class ListDataErrorState extends ListDataState {

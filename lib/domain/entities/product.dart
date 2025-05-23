@@ -28,6 +28,7 @@ class Product {
   Meta? meta;
   List<String>? images;
   String? thumbnail;
+  bool? isFavorite;
 
   Product({
     required this.id,
@@ -52,6 +53,7 @@ class Product {
     required this.meta,
     required this.images,
     required this.thumbnail,
+    this.isFavorite = false
   });
   factory Product.fromJson(Map<String, dynamic> json) => _$ProductFromJson(json);
 
