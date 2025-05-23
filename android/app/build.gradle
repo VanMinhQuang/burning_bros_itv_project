@@ -19,6 +19,16 @@ android {
         jvmTarget = JavaVersion.VERSION_1_8
     }
 
+    signingConfigs {
+        release {
+            storeFile file("release/my-key.jks")
+            storePassword "123@123"
+            keyAlias "my-key-alias"
+            keyPassword "123@123"
+        }
+    }
+
+
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "com.burning.bros.burning_bros"
