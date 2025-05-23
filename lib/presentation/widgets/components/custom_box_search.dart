@@ -33,51 +33,54 @@ class CustomSearchBox extends StatelessWidget {
           borderRadius: const BorderRadius.all(Radius.circular(12.0)),
           border: Border.all(color: Colors.grey.withOpacity(0.3), width: 1),
           color: Colors.white),
-      child: TextFormField(
-        controller: controller,
-        style: TextThemeStyle.textBoxCustomSize(
-            color: Colors.black,  fontSize: 16.sp),
-        textAlign: TextAlign.start,
-        textAlignVertical: TextAlignVertical.center,
-        decoration: InputDecoration(
-          alignLabelWithHint: true,
-          border: InputBorder.none,
-          hintStyle:  TextThemeStyle.textBoxCustomSize(
-            color: textGrey,  fontSize: 16.sp),
-          hintText: hintText,
-          isCollapsed: true,
-          prefixIcon:  Icon(Icons.search,
-              color: textGrey, size: 16.sp),
-          suffixIcon: controller.text.isEmpty
-              ? const SizedBox()
-              : IconButton(
-            onPressed: () {
-              controller.clear();
-              if(onClear != null){
-                onClear!('');
-              }
-              FocusScope.of(context).unfocus();
-            },
-            icon:  Icon(Icons.close,
-                color: Colors.black, size: 16.sp),
+      child: ValueListenableBuilder<TextEditingValue>(
+        valueListenable: controller,
+        builder: (context, value, child) =>  TextFormField(
+          controller: controller,
+          style: TextThemeStyle.textBoxCustomSize(
+              color: Colors.black,  fontSize: 16.sp),
+          textAlign: TextAlign.start,
+          textAlignVertical: TextAlignVertical.center,
+          decoration: InputDecoration(
+            alignLabelWithHint: true,
+            border: InputBorder.none,
+            hintStyle:  TextThemeStyle.textBoxCustomSize(
+              color: textGrey,  fontSize: 16.sp),
+            hintText: hintText,
+            isCollapsed: true,
+            prefixIcon:  Icon(Icons.search,
+                color: textGrey, size: 16.sp),
+            suffixIcon: value.text.isEmpty
+                ? const SizedBox()
+                : IconButton(
+              onPressed: () {
+                controller.clear();
+                if(onClear != null){
+                  onClear!('');
+                }
+                FocusScope.of(context).unfocus();
+              },
+              icon:  Icon(Icons.close,
+                  color: Colors.black, size: 16.sp),
+            ),
           ),
+          onChanged: (text){
+            if(onChange != null){
+              onChange!(text);
+            }
+          },
+          onTap: (){
+            if(onTap != null){
+              onTap!();
+            }
+          },
+          onFieldSubmitted: (text) {
+            if(onSubmit != null){
+              //controller.text = text;
+              onSubmit!(text);
+            }
+          },
         ),
-        onChanged: (text){
-          if(onChange != null){
-            onChange!(text);
-          }
-        },
-        onTap: (){
-          if(onTap != null){
-            onTap!();
-          }
-        },
-        onFieldSubmitted: (text) {
-          if(onSubmit != null){
-            //controller.text = text;
-            onSubmit!(text);
-          }
-        },
       ),
     );
   }
