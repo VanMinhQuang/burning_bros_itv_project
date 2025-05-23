@@ -8,31 +8,34 @@ part of '../entities/product.dart';
 
 Product _$ProductFromJson(Map<String, dynamic> json) => Product(
       id: ((json['id'] ?? 0) as num).toInt(),
-      title: json['title']  as String,
-      description: json['description'] as String,
-      category: json['category'] as String,
-      price: (json['price'] as num).toDouble(),
-      discountPercentage: (json['discountPercentage'] as num).toDouble(),
-      rating: (json['rating'] as num).toDouble(),
-      stock: (json['stock'] as num).toInt(),
-      tags: json['tags'] != null ? (json['tags'] as List<dynamic>).map((e) => e as String).toList() : [],
-      brand: json['brand'] as String,
-      sku: json['sku'] as String,
-      weight: (json['weight'] as num).toInt(),
-      dimensions:
-          Dimension.fromJson(json['dimensions'] as Map<String, dynamic>) ,
-      warrantyInformation: json['warrantyInformation'] as String,
-      shippingInformation: json['shippingInformation'] as String,
-      availabilityStatus: json['availabilityStatus'] as String,
-      reviews: json['reviews'] != null ? (json['reviews'] as List<dynamic>)
-          .map((e) => Review.fromJson(e as Map<String, dynamic>))
-          .toList() : [],
-      returnPolicy: json['returnPolicy'] as String,
-      minimumOrderQuantity: (json['minimumOrderQuantity'] as num).toInt(),
-      meta: Meta.fromJson(json['meta'] as Map<String, dynamic>),
-      images: json['images'] != null ?
-          (json['images'] as List<dynamic>).map((e) => e as String).toList() : [],
-      thumbnail: json['thumbnail'] as String,
+      title: json['title'] ?? '',
+      description: json['description'] ?? '',
+      category: json['category'] ?? '',
+      price: (json['price'] as num?)?.toDouble() ?? 0.0,
+      discountPercentage: (json['discountPercentage'] as num?)?.toDouble() ?? 0.0,
+      rating: (json['rating'] as num?)?.toDouble() ?? 0.0,
+      stock: (json['stock'] as num?)?.toInt() ?? 0,
+      tags: (json['tags'] as List<dynamic>?)?.map((e) => e as String).toList() ?? [],
+      brand: json['brand'] ?? '',
+      sku: json['sku'] ?? '',
+      weight: (json['weight'] as num?)?.toInt() ?? 0,
+      dimensions: json['dimensions'] != null
+          ? Dimension.fromJson(json['dimensions'] as Map<String, dynamic>)
+          : Dimension(),
+      warrantyInformation: json['warrantyInformation']  ?? '',
+      shippingInformation: json['shippingInformation']  ?? '',
+      availabilityStatus: json['availabilityStatus']  ?? '',
+      reviews: (json['reviews'] as List<dynamic>?)
+          ?.map((e) => Review.fromJson(e as Map<String, dynamic>))
+          .toList() ??
+          [],
+      returnPolicy: json['returnPolicy'] ?? '',
+      minimumOrderQuantity: (json['minimumOrderQuantity'] as num?)?.toInt() ?? 1,
+      meta: json['meta'] != null
+          ? Meta.fromJson(json['meta'] as Map<String, dynamic>)
+          : Meta(),
+      images: (json['images'] as List<dynamic>?)?.map((e) => e as String).toList() ?? [],
+      thumbnail: json['thumbnail'] ?? '',
     );
 
 Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{

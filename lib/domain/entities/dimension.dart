@@ -7,9 +7,9 @@ class Dimension {
    double? depth;
 
   Dimension({
-    required this.width,
-    required this.height,
-    required this.depth,
+     this.width,
+     this.height,
+     this.depth,
   });
   factory Dimension.fromJson(Map<String, dynamic> json) => _$DimensionFromJson(json);
 

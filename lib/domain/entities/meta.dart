@@ -8,10 +8,10 @@ class Meta {
    String? qrCode;
 
   Meta({
-    required this.createdAt,
-    required this.updatedAt,
-    required this.barcode,
-    required this.qrCode,
+     this.createdAt,
+     this.updatedAt,
+     this.barcode,
+     this.qrCode,
   });
   factory Meta.fromJson(Map<String, dynamic> json) => _$MetaFromJson(json);
 

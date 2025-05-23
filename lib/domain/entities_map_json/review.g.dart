@@ -8,10 +8,10 @@ part of '../entities/review.dart';
 
 Review _$ReviewFromJson(Map<String, dynamic> json) => Review(
       rating: ((json['rating'] ?? 0) as num).toInt(),
-      comment: json['comment'] as String,
+      comment: json['comment'] ?? '',
       date: json['date'] != null ? DateTime.parse(json['date'] as String) : null,
-      reviewerName: json['reviewerName'] as String,
-      reviewerEmail: json['reviewerEmail'] as String,
+      reviewerName: json['reviewerName'] ?? '',
+      reviewerEmail: json['reviewerEmail'] ?? '',
     );
 
 Map<String, dynamic> _$ReviewToJson(Review instance) => <String, dynamic>{

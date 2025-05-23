@@ -7,9 +7,9 @@ part of '../entities/dimension.dart';
 // **************************************************************************
 
 Dimension _$DimensionFromJson(Map<String, dynamic> json) => Dimension(
-      width: (json['width'] as num).toDouble(),
-      height: (json['height'] as num).toDouble(),
-      depth: (json['depth'] as num).toDouble(),
+      width: ((json['width'] ?? 0.0) as num).toDouble(),
+      height: ((json['height']?? 0.0) as num).toDouble(),
+      depth: ((json['depth']?? 0.0) as num).toDouble(),
     );
 
 Map<String, dynamic> _$DimensionToJson(Dimension instance) => <String, dynamic>{

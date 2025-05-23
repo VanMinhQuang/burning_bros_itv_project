@@ -9,15 +9,16 @@ import 'package:http/http.dart' as http;
 
 class ListDataRepositoryImplement extends Service implements ListDataRepository{
   @override
-  Future<List<Product>?> getProducts({required int pageIndex, required int pageSize}) async {
-      var urlString = '$api_url/products?limit=$pageSize&skip=$pageIndex';
+  Future<List<Product>?> getProducts({required int skip, required int pageSize}) async {
+      var urlString = '$api_url/products?limit=$pageSize&skip=$skip';
       var url = Uri.parse(urlString);
 
       var createRequestHeader = await createHeaderAuthorization();
     try{
       var response = await http.get(url,headers: createRequestHeader).timeout(Duration(seconds: Service.serviceTimeOut));
       var responseRaw = responseBody(response);
-      var product = (jsonDecode(responseRaw) as List).map((e) => Product.fromJson(e),).toList();
+      var data = jsonDecode(responseRaw)['products'] as List;
+      var product = data.map((e) => Product.fromJson(e),).toList();
       return product;
     }catch(e){
       rethrow;
