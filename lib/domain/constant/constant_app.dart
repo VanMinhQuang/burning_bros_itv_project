@@ -1,1 +1,0 @@
-String api_url = 'https://cooking-meal-service-2.onrender.com/';
