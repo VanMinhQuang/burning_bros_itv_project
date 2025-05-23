@@ -81,33 +81,33 @@ class _ListDataFormState extends State<ListDataForm> with BaseMixin {
                 context: context, content: 'Error occured');
           }
         },
-        child: BlocBuilder<ListDataCubit, ListDataState>(
-            builder: (context, state) {
-          return Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.all(8.sp),
-                child: CustomSearchBox(
-                  controller: searchController,
-                  hintText: 'Enter your item here',
-                  onChange: (text) {
-                    if (_debounce?.isActive ?? false) _debounce!.cancel();
-                    _debounce = Timer(const Duration(milliseconds: 500), () {
-                      _searchEvent(search: text);
-                    });
-                  },
-                  onClear: (text) => _searchEvent(search: ''),
-                ),
+        child: Column(
+          children: [
+            Padding(
+              padding: EdgeInsets.all(8.sp),
+              child: CustomSearchBox(
+                controller: searchController,
+                hintText: 'Enter your item here',
+                onChange: (text) {
+                  if (_debounce?.isActive ?? false) _debounce!.cancel();
+                  _debounce = Timer(const Duration(milliseconds: 500), () {
+                    _searchEvent(search: text);
+                  });
+                },
+                onClear: (text) => _searchEvent(search: ''),
               ),
-              Expanded(
-                child: RefreshIndicator(
-                  triggerMode: RefreshIndicatorTriggerMode.onEdge,
-                  edgeOffset: 0,
-                  displacement: 50,
-                  strokeWidth: 5,
-                  color: mainColor,
-                  onRefresh: _refreshHandle,
-                  child: Skeletonizer(
+            ),
+            Expanded(
+              child: RefreshIndicator(
+                triggerMode: RefreshIndicatorTriggerMode.onEdge,
+                edgeOffset: 0,
+                displacement: 50,
+                strokeWidth: 5,
+                color: mainColor,
+                onRefresh: _refreshHandle,
+                child: BlocSelector<ListDataCubit,ListDataState,bool>(
+                  selector: (state) => state is ListDataLoadedState,
+                  builder: (context, state) =>  Skeletonizer(
                     enabled: isLoading ?? false,
                     child: ListView.builder(
                       controller: scrollController,
@@ -132,10 +132,10 @@ class _ListDataFormState extends State<ListDataForm> with BaseMixin {
                     ),
                   ),
                 ),
-              )
-            ],
-          );
-        }),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -370,6 +370,8 @@ class _ListDataFormState extends State<ListDataForm> with BaseMixin {
               .getProduct(skip: skip, pageSize: pageSize);
         },
       );
-    } else {}
+    } else {
+      CustomDialog.showErrorAlert(context: context, content: 'Network error, check your network!');
+    }
   }
 }
